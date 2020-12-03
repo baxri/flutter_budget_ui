@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_budget_ui/data/data.dart';
 import 'package:flutter_budget_ui/models/category_model.dart';
 import 'package:flutter_budget_ui/models/expense_model.dart';
+import 'package:flutter_budget_ui/screens/category_screen.dart';
 import 'package:flutter_budget_ui/widgets/bar_chart.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -11,55 +12,59 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   Widget _buildCategory(Category category, double total) {
-    return Container(
-      width: double.infinity,
-      height: 100,
-      margin: EdgeInsets.symmetric(horizontal: 15, vertical: 7),
-      padding: EdgeInsets.all(15),
-      decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(6),
-          boxShadow: [
-            BoxShadow(
-                color: Colors.black12, offset: Offset(0, 2), blurRadius: 6),
-          ]),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                category.name,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-              ),
-              Text(
-                '\$${(category.maxAmount - total).toStringAsFixed(2)} / \$${total.toStringAsFixed(2)}',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-              )
-            ],
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Stack(
-            children: [
-              Container(
-                height: 20,
-                decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    borderRadius: BorderRadius.circular(20)),
-              ),
-              Container(
-                width: 50,
-                height: 20,
-                decoration: BoxDecoration(
-                    color: Colors.red[900],
-                    borderRadius: BorderRadius.circular(20)),
-              )
-            ],
-          )
-        ],
+    return GestureDetector(
+      onTap: () => Navigator.push(
+          context, MaterialPageRoute(builder: (_) => CategoryScreen(category))),
+      child: Container(
+        width: double.infinity,
+        height: 100,
+        margin: EdgeInsets.symmetric(horizontal: 15, vertical: 7),
+        padding: EdgeInsets.all(15),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(6),
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.black12, offset: Offset(0, 2), blurRadius: 6),
+            ]),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  category.name,
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                ),
+                Text(
+                  '\$${(category.maxAmount - total).toStringAsFixed(2)} / \$${total.toStringAsFixed(2)}',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                )
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Stack(
+              children: [
+                Container(
+                  height: 20,
+                  decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      borderRadius: BorderRadius.circular(20)),
+                ),
+                Container(
+                  width: 50,
+                  height: 20,
+                  decoration: BoxDecoration(
+                      color: Colors.red[900],
+                      borderRadius: BorderRadius.circular(20)),
+                )
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
